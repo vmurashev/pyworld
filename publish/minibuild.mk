@@ -1,4 +1,4 @@
-#include "../../cpython/publish/bundle/bundled_python.inc"
+#include "@/cpython/publish/bundle/bundled_python.inc"
 
 module_type = 'composite'
 module_name = 'bundled_python_world'

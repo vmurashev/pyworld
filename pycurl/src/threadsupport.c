@@ -88,6 +88,7 @@ pycurl_release_thread(PyThreadState *state)
 
 #ifdef PYCURL_NEED_OPENSSL_TSL
 
+#if OPENSSL_VERSION_NUMBER < 0x10100000
 static PyThread_type_lock *pycurl_openssl_tsl = NULL;
 
 static void
@@ -115,10 +116,12 @@ pycurl_ssl_id(void)
     return (unsigned long) PyThread_get_thread_ident();
 }
 #endif
+#endif
 
 PYCURL_INTERNAL int
 pycurl_ssl_init(void)
 {
+#if OPENSSL_VERSION_NUMBER < 0x10100000
     int i, c = CRYPTO_num_locks();
 
     pycurl_openssl_tsl = PyMem_New(PyThread_type_lock, c);
@@ -146,12 +149,14 @@ pycurl_ssl_init(void)
     CRYPTO_set_id_callback(pycurl_ssl_id);
 #endif
     CRYPTO_set_locking_callback(pycurl_ssl_lock);
+#endif
     return 0;
 }
 
 PYCURL_INTERNAL void
 pycurl_ssl_cleanup(void)
 {
+#if OPENSSL_VERSION_NUMBER < 0x10100000
     if (pycurl_openssl_tsl) {
         int i, c = CRYPTO_num_locks();
 
@@ -169,6 +174,7 @@ pycurl_ssl_cleanup(void)
         PyMem_Free(pycurl_openssl_tsl);
         pycurl_openssl_tsl = NULL;
     }
+#endif
 }
 #endif
 

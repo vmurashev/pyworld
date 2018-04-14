@@ -22,7 +22,7 @@ automatically called by pycurl when a Curl object no longer has any\n\
 references to it, but can also be called explicitly.\n\
 \n\
 .. _curl_easy_cleanup:\n\
-    http://curl.haxx.se/libcurl/c/curl_easy_cleanup.html";
+    https://curl.haxx.se/libcurl/c/curl_easy_cleanup.html";
 
 PYCURL_INTERNAL const char curl_errstr_doc[] = "errstr() -> string\n\
 \n\
@@ -54,18 +54,18 @@ Example usage::\n\
 \n\
     import pycurl\n\
     c = pycurl.Curl()\n\
-    c.setopt(pycurl.URL, \"http://sf.net\")\n\
+    c.setopt(pycurl.URL, \"https://python.org\")\n\
     c.setopt(pycurl.FOLLOWLOCATION, 1)\n\
     c.perform()\n\
     print c.getinfo(pycurl.HTTP_CODE), c.getinfo(pycurl.EFFECTIVE_URL)\n\
     ...\n\
-    --> 200 \"http://sourceforge.net/\"\n\
+    --> 200 \"https://www.python.org/\"\n\
 \n\
 \n\
 Raises pycurl.error exception upon failure.\n\
 \n\
 .. _curl_easy_getinfo:\n\
-    http://curl.haxx.se/libcurl/c/curl_easy_getinfo.html";
+    https://curl.haxx.se/libcurl/c/curl_easy_getinfo.html";
 
 PYCURL_INTERNAL const char curl_pause_doc[] = "pause(bitmask) -> None\n\
 \n\
@@ -78,7 +78,7 @@ derived from the ``PAUSE_RECV``, ``PAUSE_SEND``, ``PAUSE_ALL`` and\n\
 \n\
 Raises pycurl.error exception upon failure.\n\
 \n\
-.. _curl_easy_pause: http://curl.haxx.se/libcurl/c/curl_easy_pause.html";
+.. _curl_easy_pause: https://curl.haxx.se/libcurl/c/curl_easy_pause.html";
 
 PYCURL_INTERNAL const char curl_perform_doc[] = "perform() -> None\n\
 \n\
@@ -89,7 +89,7 @@ Corresponds to `curl_easy_perform`_ in libcurl.\n\
 Raises pycurl.error exception upon failure.\n\
 \n\
 .. _curl_easy_perform:\n\
-    http://curl.haxx.se/libcurl/c/curl_easy_perform.html";
+    https://curl.haxx.se/libcurl/c/curl_easy_perform.html";
 
 PYCURL_INTERNAL const char curl_reset_doc[] = "reset() -> None\n\
 \n\
@@ -98,7 +98,13 @@ live connections, session ID cache, DNS cache, cookies, and shares.\n\
 \n\
 Corresponds to `curl_easy_reset`_ in libcurl.\n\
 \n\
-.. _curl_easy_reset: http://curl.haxx.se/libcurl/c/curl_easy_reset.html";
+.. _curl_easy_reset: https://curl.haxx.se/libcurl/c/curl_easy_reset.html";
+
+PYCURL_INTERNAL const char curl_set_ca_certs_doc[] = "set_ca_certs() -> None\n\
+\n\
+Load ca certs from provided unicode string.\n\
+\n\
+Note that certificates will be added only when cURL starts new connection.";
 
 PYCURL_INTERNAL const char curl_setopt_doc[] = "setopt(option, value) -> None\n\
 \n\
@@ -201,7 +207,7 @@ Raises TypeError when the option value is not of a type accepted by the\n\
 respective option, and pycurl.error exception when libcurl rejects the\n\
 option or its value.\n\
 \n\
-.. _curl_easy_setopt: http://curl.haxx.se/libcurl/c/curl_easy_setopt.html";
+.. _curl_easy_setopt: https://curl.haxx.se/libcurl/c/curl_easy_setopt.html";
 
 PYCURL_INTERNAL const char curl_setopt_string_doc[] = "setopt_string(option, value) -> None\n\
 \n\
@@ -233,7 +239,7 @@ Example setting URL via ``setopt_string``::\n\
     c = pycurl.Curl()\n\
     c.setopt_string(10002, \"http://www.python.org/\")\n\
 \n\
-.. _CURLOPT_POSTFIELDS: http://curl.haxx.se/libcurl/c/CURLOPT_POSTFIELDS.html";
+.. _CURLOPT_POSTFIELDS: https://curl.haxx.se/libcurl/c/CURLOPT_POSTFIELDS.html";
 
 PYCURL_INTERNAL const char curl_unsetopt_doc[] = "unsetopt(option) -> None\n\
 \n\
@@ -266,7 +272,7 @@ Curl object (and thus does not increase the reference count on the Curl\n\
 object).\n\
 \n\
 .. _curl_multi_add_handle:\n\
-    http://curl.haxx.se/libcurl/c/curl_multi_add_handle.html";
+    https://curl.haxx.se/libcurl/c/curl_multi_add_handle.html";
 
 PYCURL_INTERNAL const char multi_assign_doc[] = "assign(sockfd, object) -> None\n\
 \n\
@@ -274,7 +280,7 @@ Creates an association in the multi handle between the given socket and\n\
 a private object in the application.\n\
 Corresponds to `curl_multi_assign`_ in libcurl.\n\
 \n\
-.. _curl_multi_assign: http://curl.haxx.se/libcurl/c/curl_multi_assign.html";
+.. _curl_multi_assign: https://curl.haxx.se/libcurl/c/curl_multi_assign.html";
 
 PYCURL_INTERNAL const char multi_close_doc[] = "close() -> None\n\
 \n\
@@ -283,7 +289,7 @@ automatically called by pycurl when a CurlMulti object no longer has any\n\
 references to it, but can also be called explicitly.\n\
 \n\
 .. _curl_multi_cleanup:\n\
-    http://curl.haxx.se/libcurl/c/curl_multi_cleanup.html";
+    https://curl.haxx.se/libcurl/c/curl_multi_cleanup.html";
 
 PYCURL_INTERNAL const char multi_fdset_doc[] = "fdset() -> tuple of lists with active file descriptors, readable, writeable, exceptions\n\
 \n\
@@ -297,7 +303,7 @@ Example usage::\n\
 \n\
     import pycurl\n\
     c = pycurl.Curl()\n\
-    c.setopt(pycurl.URL, \"http://curl.haxx.se\")\n\
+    c.setopt(pycurl.URL, \"https://curl.haxx.se\")\n\
     m = pycurl.CurlMulti()\n\
     m.add_handle(c)\n\
     while 1:\n\
@@ -310,7 +316,7 @@ Example usage::\n\
             if ret != pycurl.E_CALL_MULTI_PERFORM: break\n\
 \n\
 .. _curl_multi_fdset:\n\
-    http://curl.haxx.se/libcurl/c/curl_multi_fdset.html";
+    https://curl.haxx.se/libcurl/c/curl_multi_fdset.html";
 
 PYCURL_INTERNAL const char multi_info_read_doc[] = "info_read([max_objects]) -> tuple(number of queued messages, a list of successful objects, a list of failed objects)\n\
 \n\
@@ -324,14 +330,14 @@ number, curl error message)* for each failed curl object. The number of\n\
 queued messages after this method has been called is also returned.\n\
 \n\
 .. _curl_multi_info_read:\n\
-    http://curl.haxx.se/libcurl/c/curl_multi_info_read.html";
+    https://curl.haxx.se/libcurl/c/curl_multi_info_read.html";
 
 PYCURL_INTERNAL const char multi_perform_doc[] = "perform() -> tuple of status and the number of active Curl objects\n\
 \n\
 Corresponds to `curl_multi_perform`_ in libcurl.\n\
 \n\
 .. _curl_multi_perform:\n\
-    http://curl.haxx.se/libcurl/c/curl_multi_perform.html";
+    https://curl.haxx.se/libcurl/c/curl_multi_perform.html";
 
 PYCURL_INTERNAL const char multi_remove_handle_doc[] = "remove_handle(Curl object) -> None\n\
 \n\
@@ -343,7 +349,7 @@ from the Curl object (and thus does not decrease the reference count on the\n\
 Curl object).\n\
 \n\
 .. _curl_multi_remove_handle:\n\
-    http://curl.haxx.se/libcurl/c/curl_multi_remove_handle.html";
+    https://curl.haxx.se/libcurl/c/curl_multi_remove_handle.html";
 
 PYCURL_INTERNAL const char multi_select_doc[] = "select([timeout]) -> number of ready file descriptors or -1 on timeout\n\
 \n\
@@ -357,7 +363,7 @@ Example usage::\n\
 \n\
     import pycurl\n\
     c = pycurl.Curl()\n\
-    c.setopt(pycurl.URL, \"http://curl.haxx.se\")\n\
+    c.setopt(pycurl.URL, \"https://curl.haxx.se\")\n\
     m = pycurl.CurlMulti()\n\
     m.add_handle(c)\n\
     while 1:\n\
@@ -407,7 +413,7 @@ Raises TypeError when the option value is not of a type accepted by the\n\
 respective option, and pycurl.error exception when libcurl rejects the\n\
 option or its value.\n\
 \n\
-.. _curl_multi_setopt: http://curl.haxx.se/libcurl/c/curl_multi_setopt.html";
+.. _curl_multi_setopt: https://curl.haxx.se/libcurl/c/curl_multi_setopt.html";
 
 PYCURL_INTERNAL const char multi_socket_action_doc[] = "socket_action(sockfd, ev_bitmask) -> tuple\n\
 \n\
@@ -415,7 +421,7 @@ Returns result from doing a socket_action() on the curl multi file descriptor\n\
 with the given timeout.\n\
 Corresponds to `curl_multi_socket_action`_ in libcurl.\n\
 \n\
-.. _curl_multi_socket_action: http://curl.haxx.se/libcurl/c/curl_multi_socket_action.html";
+.. _curl_multi_socket_action: https://curl.haxx.se/libcurl/c/curl_multi_socket_action.html";
 
 PYCURL_INTERNAL const char multi_socket_all_doc[] = "socket_all() -> Tuple.\n\
 \n\
@@ -427,7 +433,7 @@ PYCURL_INTERNAL const char multi_timeout_doc[] = "timeout() -> int\n\
 Returns how long to wait for action before proceeding.\n\
 Corresponds to `curl_multi_timeout`_ in libcurl.\n\
 \n\
-.. _curl_multi_timeout: http://curl.haxx.se/libcurl/c/curl_multi_timeout.html";
+.. _curl_multi_timeout: https://curl.haxx.se/libcurl/c/curl_multi_timeout.html";
 
 PYCURL_INTERNAL const char pycurl_global_cleanup_doc[] = "global_cleanup() -> None\n\
 \n\
@@ -435,7 +441,7 @@ Cleanup curl environment.\n\
 \n\
 Corresponds to `curl_global_cleanup`_ in libcurl.\n\
 \n\
-.. _curl_global_cleanup: http://curl.haxx.se/libcurl/c/curl_global_cleanup.html";
+.. _curl_global_cleanup: https://curl.haxx.se/libcurl/c/curl_global_cleanup.html";
 
 PYCURL_INTERNAL const char pycurl_global_init_doc[] = "global_init(option) -> None\n\
 \n\
@@ -446,7 +452,7 @@ pycurl.GLOBAL_ALL, pycurl.GLOBAL_NOTHING, pycurl.GLOBAL_DEFAULT.\n\
 \n\
 Corresponds to `curl_global_init`_ in libcurl.\n\
 \n\
-.. _curl_global_init: http://curl.haxx.se/libcurl/c/curl_global_init.html";
+.. _curl_global_init: https://curl.haxx.se/libcurl/c/curl_global_init.html";
 
 PYCURL_INTERNAL const char pycurl_module_doc[] = "This module implements an interface to the cURL library.\n\
 \n\
@@ -479,7 +485,7 @@ Example usage::\n\
     'imap', 'imaps', 'pop3', 'pop3s', 'rtsp', 'smtp', 'smtps', 'telnet',\n\
     'tftp'), None, 0, None)\n\
 \n\
-.. _curl_version_info: http://curl.haxx.se/libcurl/c/curl_version_info.html";
+.. _curl_version_info: https://curl.haxx.se/libcurl/c/curl_version_info.html";
 
 PYCURL_INTERNAL const char share_doc[] = "CurlShare() -> New CurlShare object\n\
 \n\
@@ -496,7 +502,7 @@ automatically called by pycurl when a CurlShare object no longer has\n\
 any references to it, but can also be called explicitly.\n\
 \n\
 .. _curl_share_cleanup:\n\
-    http://curl.haxx.se/libcurl/c/curl_share_cleanup.html";
+    https://curl.haxx.se/libcurl/c/curl_share_cleanup.html";
 
 PYCURL_INTERNAL const char share_setopt_doc[] = "setopt(option, value) -> None\n\
 \n\
@@ -514,7 +520,7 @@ Example usage::\n\
     s = pycurl.CurlShare()\n\
     s.setopt(pycurl.SH_SHARE, pycurl.LOCK_DATA_COOKIE)\n\
     s.setopt(pycurl.SH_SHARE, pycurl.LOCK_DATA_DNS)\n\
-    curl.setopt(pycurl.URL, 'http://curl.haxx.se')\n\
+    curl.setopt(pycurl.URL, 'https://curl.haxx.se')\n\
     curl.setopt(pycurl.SHARE, s)\n\
     curl.perform()\n\
     curl.close()\n\
@@ -522,5 +528,5 @@ Example usage::\n\
 Raises pycurl.error exception upon failure.\n\
 \n\
 .. _curl_share_setopt:\n\
-    http://curl.haxx.se/libcurl/c/curl_share_setopt.html";
+    https://curl.haxx.se/libcurl/c/curl_share_setopt.html";
 

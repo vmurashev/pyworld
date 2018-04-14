@@ -72,10 +72,6 @@ pycurl_inet_ntop (int family, void *addr, char *string, size_t string_size);
 #define inet_ntop(fam,addr,string,size) pycurl_inet_ntop(fam,addr,string,size)
 #endif
 
-/* Ensure we have updated versions */
-#if !defined(PY_VERSION_HEX) || (PY_VERSION_HEX < 0x02040000)
-#  error "Need Python version 2.4 or greater to compile pycurl."
-#endif
 #if !defined(LIBCURL_VERSION_NUM) || (LIBCURL_VERSION_NUM < 0x071300)
 #  error "Need libcurl version 7.19.0 or greater to compile pycurl."
 #endif
@@ -149,14 +145,12 @@ pycurl_inet_ntop (int family, void *addr, char *string, size_t string_size);
 #define HAVE_CURL_7_30_0_PIPELINE_OPTS
 #endif
 
-/* Python < 2.5 compat for Py_ssize_t */
-#if PY_VERSION_HEX < 0x02050000
-typedef int Py_ssize_t;
+#if LIBCURL_VERSION_NUM >= 0x073100 /* check for 7.49.0 or greater */
+#define HAVE_CURLOPT_CONNECT_TO
 #endif
 
-/* Py_TYPE is defined by Python 2.6+ */
-#if PY_VERSION_HEX < 0x02060000 && !defined(Py_TYPE)
-#  define Py_TYPE(x) (x)->ob_type
+#if LIBCURL_VERSION_NUM >= 0x073200 /* check for 7.50.0 or greater */
+#define HAVE_CURLINFO_HTTP_VERSION
 #endif
 
 #undef UNUSED
@@ -167,7 +161,8 @@ typedef int Py_ssize_t;
 # if defined(HAVE_CURL_OPENSSL)
 #   define PYCURL_NEED_SSL_TSL
 #   define PYCURL_NEED_OPENSSL_TSL
-#   include <openssl/crypto.h>
+#   include <openssl/ssl.h>
+#   include <openssl/err.h>
 #   define COMPILE_SSL_LIB "openssl"
 # elif defined(HAVE_CURL_GNUTLS)
 #   include <gnutls/gnutls.h>
@@ -323,10 +318,13 @@ PyText_Check(PyObject *o);
 #define PYCURL_MEMGROUP_HTTPPOST        32
 /* Postfields object */
 #define PYCURL_MEMGROUP_POSTFIELDS      64
+/* CA certs object */
+#define PYCURL_MEMGROUP_CACERTS         128
 
 #define PYCURL_MEMGROUP_EASY \
     (PYCURL_MEMGROUP_CALLBACK | PYCURL_MEMGROUP_FILE | \
-    PYCURL_MEMGROUP_HTTPPOST | PYCURL_MEMGROUP_POSTFIELDS)
+    PYCURL_MEMGROUP_HTTPPOST | PYCURL_MEMGROUP_POSTFIELDS | \
+    PYCURL_MEMGROUP_CACERTS)
 
 #define PYCURL_MEMGROUP_ALL \
     (PYCURL_MEMGROUP_ATTRDICT | PYCURL_MEMGROUP_EASY | \
@@ -359,6 +357,9 @@ typedef struct CurlObject {
 #ifdef HAVE_CURL_7_20_0_OPTS
     struct curl_slist *mail_rcpt;
 #endif
+#ifdef HAVE_CURLOPT_CONNECT_TO
+    struct curl_slist *connect_to;
+#endif
     /* callbacks */
     PyObject *w_cb;
     PyObject *h_cb;
@@ -382,6 +383,8 @@ typedef struct CurlObject {
     PyObject *writeheader_fp;
     /* reference to the object used for CURLOPT_POSTFIELDS */
     PyObject *postfields_obj;
+    /* reference to the object containing ca certs */
+    PyObject *ca_certs_obj;
     /* misc */
     char error[CURL_ERROR_SIZE+1];
 } CurlObject;

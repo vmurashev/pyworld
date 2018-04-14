@@ -35,7 +35,11 @@ lib_list = [
   '${@project_root}/zlib',
 ]
 
-definitions += ['PYCURL_VERSION="7.43.0"', 'NDEBUG', 'HAVE_CURL_OPENSSL', 'HAVE_CURL_SSL']
+PYCURL_VERSION = "7.43.1"
+
+definitions_windows += ['PYCURL_VERSION={}'.format(PYCURL_VERSION)]
+definitions_posix   += ['PYCURL_VERSION="{}"'.format(PYCURL_VERSION)]
+definitions += ['NDEBUG', 'HAVE_CURL_OPENSSL', 'HAVE_CURL_SSL']
 
 prebuilt_lib_list_windows = ['crypt32','ws2_32', 'advapi32', 'user32']
 prebuilt_lib_list_linux = ['dl', 'pthread', 'rt']
